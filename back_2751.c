@@ -1,4 +1,4 @@
-// Äü Á¤·Ä + median of three + »ğÀÔÁ¤·Ä 
+// quick + median of three + insertion
 
 #include <stdio.h>
 
