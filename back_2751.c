@@ -1,4 +1,4 @@
-// Äü Á¤·Ä + median of three + »ðÀÔÁ¤·Ä
+// Äü Á¤·Ä + median of three + »ðÀÔÁ¤·Ä 
 
 #include <stdio.h>
 
