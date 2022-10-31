@@ -1,3 +1,5 @@
+// Äü Á¤·Ä + median of three + »ğÀÔÁ¤·Ä
+
 #include <stdio.h>
 
 void Swap(int arr[],int idx1, int idx2)
