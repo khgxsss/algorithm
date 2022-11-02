@@ -1,58 +1,60 @@
-// quick + median of three + insertion
-
 #include <stdio.h>
 
-void Swap(int arr[],int idx1, int idx2)
-{
+void swap(int* arr, int idx1, int idx2){
     int temp = arr[idx1];
     arr[idx1] = arr[idx2];
     arr[idx2] = temp;
 }
 
-int sort_three(int* arr,int left,int right){
-    int samples[3] = {left,(left+right)/2,right}; //values is index
-    if(arr[samples[0]]>arr[samples[1]])
-           Swap(samples,0,1);
-    if(arr[samples[1]] > arr[samples[2]])
-        Swap(samples, 1, 2);
-    if(arr[samples[0]]>arr[samples[1]])
-        Swap(samples, 0, 1);
-        
+int median_of_three(int* arr, int left, int right){
+    int samples[3] = {left, (left+right)/2, right};
+    if (arr[samples[0]]>arr[samples[1]])
+    {
+        swap(samples, 0, 1);
+    }
+    if (arr[samples[1]]>arr[samples[2]])
+    {
+        swap(samples, 1, 2);
+    }
+    if (arr[samples[0]]>arr[samples[1]])
+    {
+        swap(samples, 0, 1);
+    }
     return samples[1];
 }
 
-int quickSort(int* arr, int start, int end){
-    int temp, i, j;
+int quickSort(int* arr,int start,int end){
+    int temp, i, j, pIdx, pivot;
     i = start + 1;
     j = end;
-    int pIdx = sort_three(arr, start, end);
-    int pivot = arr[pIdx];
+    pIdx = median_of_three(arr, start, end);
+    pivot = arr[pIdx];
 
-    Swap(arr, start, pIdx);
-    while ( j >= i)
+    swap(arr, start, pIdx);
+
+    while (j >= i)
     {
-        while (arr[i] <= pivot && i<=end)
+        while (arr[i] <= pivot && i <= end)
         {
-            i++;
+            i ++;
         }
-        while (arr[j] >= pivot && j>=start+1)
+        while (arr[j] >= pivot && j >= start+1)
         {
             j--;
         }
-        if (i <= j){
-            Swap(arr, i, j);
+        if (j >= i)
+        {
+            swap(arr, i, j);
         }
     }
-    Swap(arr, j, start);
+    swap(arr, j, start);
 
     return j;
 }
 
 void quickSort_out(int* arr, int start, int end){
-
-    if (start > end)
-    {
-        return;
+    if (start > end){
+        return ;
     }
     int pivot = quickSort(arr, start, end);
     quickSort_out(arr, start, pivot-1);
@@ -60,12 +62,12 @@ void quickSort_out(int* arr, int start, int end){
     
 }
 
-void insertionSort(int*arr, int num){
-    int i,j,temp;
+void insertionSort(int* arr, int num){
+    int i, j, temp;
     for ( i = 1; i < num; i++)
     {
         temp = arr[i];
-        j=i-1;
+        j = i-1;
         while (j >= 0 && arr[j] > temp)
         {
             arr[j+1] = arr[j];
@@ -73,12 +75,12 @@ void insertionSort(int*arr, int num){
         }
         arr[j+1] = temp;
     }
+    
     return;
 }
 
+int main(void){
 
-int main(void)
-{
     int inputNum;
     
     
@@ -92,7 +94,7 @@ int main(void)
     }
     
 
-    if (inputNum < 75)
+    if (inputNum < 100)
     {
         insertionSort(initList, inputNum);
     }else {
@@ -105,9 +107,5 @@ int main(void)
         printf("%d\n",initList[i]);
     }
     
-    
     return 0;
 }
-
-
-
