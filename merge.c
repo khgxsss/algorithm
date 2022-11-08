@@ -7,7 +7,7 @@ void merge(int a[], int m, int middle, int n) {
     int i = m;
     int j = middle +1;
     int k = m;
-    // ���� ������� �迭�� ����
+    // akjdkljfkljklㄴ어람널머ㅏㅓㅏㅣㅓㅣ
     while (i <=middle && j <= n)
     {
         if (a[i] <=a[j])
