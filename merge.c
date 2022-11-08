@@ -1,9 +1,6 @@
 #include <stdio.h>
-int number = 8;
 
-int size;
-int sorted[8]; // 정렬 배열 : 전역변수
-int count = 0;
+int sorted[8];
 
 void merge(int a[], int m, int middle, int n) {
     int i = m;
@@ -14,9 +11,38 @@ void merge(int a[], int m, int middle, int n) {
     {
         if (a[i] <=a[j])
         {
-            /* code */
+            sorted[k] = a[i];
+            i++;
+        }else {
+            sorted[k] = a[j];
+            j++;
+        }
+        k++;
+    }
+    if ( i > middle)
+    {
+        for (int t = j; t <= n; t++)
+        {
+            sorted[k] = a[t];
+            k++;
         }
         
+    }else {
+        for (int t = i; t <= middle; t++)
+        {
+            sorted[k] = a[t];
+            k++;
+        }
+    }
+    for (int t = m; t <= n; t++)
+    {
+        a[t] = sorted[t];  
     }
     
+}
+
+void mergeSort(int a[], int m, int n){
+    if (m < n) {
+        
+    }
 }
