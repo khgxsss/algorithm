@@ -13,41 +13,41 @@ void heapsort(int* heap, int size){
     for (int i = 0; i < size; i++)
     {
         int c = i;
-        
+        int root;
         do
         {
-            int root = (c-1)/2;
+            root = (c-1)/2;
             if (heap[root] < heap[c])
             {
-                swap(heap, root, c);
+                swap(heap, root,c);
             }
             c = root;
         } while (c != 0);
+        
     }
     
     for (int i = size-1; i >= 0; i--)
     {
-        swap(heap, 0 , i);
         int c = 1;
         int root = 0;
-        
-        
+        swap(heap, 0, i);
         do
         {
-            c = root*2 +1;
+            c = root*2 + 1;
             if (heap[c] < heap[c+1] && c < i-1)
             {
                 c++;
             }
-            if (heap[root] < heap[c] && c < i)
+            if (heap[c] > heap[root] && c  <i)
             {
-                swap(heap, root, c);
+                swap(heap, c, root);
             }
+            
             root = c;
-
-        } while (c <i);
+        } while (c < i);
         
     }
+    
     
     
           

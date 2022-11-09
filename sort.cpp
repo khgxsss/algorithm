@@ -26,7 +26,7 @@ public:
     }
 
     // ~Student(){
-    //     cout << "소멸" << endl ;
+    //     cout << "?���?" << endl ;
     // };
 };
 
@@ -35,11 +35,11 @@ public:
 int main(void) {
     int a[10] = {9,3,5,1,43,24,2,1,3,5};
     Student students[] = {
-        Student("나동빈", 90),
-        Student("김", 88),
-        Student("박", 63),
-        Student("이", 42),
-        Student("최", 70)
+        Student("a", 90),
+        Student("b", 88),
+        Student("c", 63),
+        Student("d", 42),
+        Student("e", 70)
     };
     
     // sort(a, a+10, compare);
