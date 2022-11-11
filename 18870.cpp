@@ -29,7 +29,7 @@ int main(int argc, char const *argv[])
 
     for (int i = 0; i < N; i++)
     {
-        // Á¤·ÄµÈ »óÅÂ¿¡¼­ find º¸´Ù lower_bound °¡ ´õ ºü¸£´Ù.
+        // ì •ë ¬ëœ ìƒíƒœì—ì„œ find ë³´ë‹¤ lower_bound ê°€ ë” ë¹ ë¥´ë‹¤..
         auto value = lower_bound(coordinate_copy.begin(), coordinate_copy.end(), coordinate.at(i));
         int index = value - coordinate_copy.begin();
         cout << index << " ";
