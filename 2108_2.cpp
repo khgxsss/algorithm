@@ -3,7 +3,7 @@
 #include<cmath>
 #include<algorithm>
 #include<stack>
- 
+
 using namespace std;
  
 //sort ±‚¡ÿ 
