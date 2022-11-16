@@ -55,10 +55,27 @@ struct SegmentTree
 
     // 업데이트할 위치, 노드번호, 해당 노드가 cover하는 입력 배열의 범위
     int updateRec(int index, int newValue, int node, int nodeLeft, int nodeRight){
+        // 업데이트 위치와 관련이 없는 segment 이면 현재 값을 return
         if (index < nodeLeft || nodeRight < index){
             return tree[node];
         }
+        // leaf노드이면 값을 업데이트하고 해당 값을 리턴
+        if (nodeLeft == nodeRight)
+        {
+            return tree[node] = newValue;
+        }
+        // Tree의 중간 node 라면 구간을 2개로 나눠 recursive call 한 후, 
+        // 왼쪽 sub-tree와 오른쪽 sub-tree의 값을 더해서 return
+        int mid = nodeLeft + (nodeRight - nodeLeft) / 2;
+        int leftVal = updateRec(index, newValue, node*2, nodeLeft, mid);
+        int rightVal = updateRec(index, newValue, node*2+1, mid+1, nodeRight);
+        return tree[node] = merge(leftVal, rightVal);
         
+        
+    }
+
+    int update(int index, int newValue){
+        return updateRec(index, newValue, 1, 0, N-1);
     }
 };
 
