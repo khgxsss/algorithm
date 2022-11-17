@@ -14,7 +14,7 @@ struct SegmentTree
     vector <bool> lazyExist;
 
     int merge(int left, int right){
-        return left + right; // sumÀÇ °æ¿ì
+        return left + right; // sumì˜ ê²½ìš°ã…
         //return min(left, right); // min
         //eturn max(left, right); // max
     }
@@ -25,33 +25,33 @@ struct SegmentTree
         //return value; // max
     }
 
-    // segment treeÀÇ °¢ node¿¡ ºÎ¿©ÇÑ ¹øÈ£, ÇØ´ç ³ëµå°¡ cover ÇÏ´Â ¹è¿­ÀÇ ¹üÀ§
+    // segment treeì˜ ê° nodeì— ë¶€ì—¬í•œ ë²ˆí˜¸, í•´ë‹¹ ë…¸ë“œê°€ cover í•˜ëŠ” ë°°ì—´ì˜ ë²”ìœ„
     int pushDown(int newValue, int node, int nodeLeft, int nodeRight){
         if (nodeLeft == nodeRight)
         {
             return tree[node] = newValue;
         }
 
-        // ÀÚ½Ä ³ëµå¿¡ ¾÷µ¥ÀÌÆ®ÇÒ °ªÀ» Àü´ŞÇÑ´Ù.
+        // ìì‹ ë…¸ë“œì— ì—…ë°ì´íŠ¸í•  ê°’ì„ ì „ë‹¬í•œë‹¤.
         lazyExist[node] = true;
         lazyValue[node] = newValue;
         return tree[node] = mergeBlock(newValue, nodeRight - nodeLeft +1);
         
     }
 
-    // °¢ ³ëµå¿¡ ºÎ¿©µÈ ¹øÈ£, ¿ø·¡ ÀÔ·Â ¹è¿­¿¡¼­ÀÇ ¹üÀ§
+    // ê° ë…¸ë“œì— ë¶€ì—¬ëœ ë²ˆí˜¸, ì›ë˜ ì…ë ¥ ë°°ì—´ì—ì„œì˜ ë²”ìœ„
     int buildRec(const int arr[], int node, int nodeLeft, int nodeRight){
-        // treeÀÇ leaf¿¡ µµ´ŞÇß´Ù¸é °ªÀ» update
+        // treeì˜ leafì— ë„ë‹¬í–ˆë‹¤ë©´ ê°’ì„ update
         if (nodeLeft == nodeRight)
         {
             return tree[node] = arr[nodeLeft];
         }
-        // treeÀÇ Áß°£ node¶ó¸é ±¸°£À» 2°³·Î ³ª´² recursive call
-        int mid = nodeLeft + (nodeRight-nodeLeft) / 2; // overflow ¹æÁö
+        // treeì˜ ì¤‘ê°„ nodeë¼ë©´ êµ¬ê°„ì„ 2ê°œë¡œ ë‚˜ëˆ  recursive call
+        int mid = nodeLeft + (nodeRight-nodeLeft) / 2; // overflow ë°©ì§€
         int leftVal = buildRec(arr, node*2, nodeLeft, mid);
         int rightVal = buildRec(arr, node*2 +1, mid+1, nodeRight);
 
-        // ±¸ÇÑ ¿ŞÂÊ sub-tree¿Í ¿À¸¥ÂÊ sub-treeÀÇ °ªÀ» ´õÇØ¼­ nodeÀÇ °ªÀ¸·Î ÀúÀå ¹× return
+        // êµ¬í•œ ì™¼ìª½ sub-treeì™€ ì˜¤ë¥¸ìª½ sub-treeì˜ ê°’ì„ ë”í•´ì„œ nodeì˜ ê°’ìœ¼ë¡œ ì €ì¥ ë° return
         return tree[node] = merge(leftVal, rightVal);
     }
 
@@ -61,23 +61,23 @@ struct SegmentTree
 
         buildRec(arr, 1, 0,N-1);
     }
-    // ¿ø·¡ ÀÔ·Â ¹è¿­¿¡¼­ÀÇ ¹üÀ§ , °¢ ³ëµåÀÇ ¹øÈ£, ÇØ´ç ³ëµå°¡ cover ÇÏ´Â ÀÔ·Â ¹è¿­ÀÇ ¹üÀ§
+    // ì›ë˜ ì…ë ¥ ë°°ì—´ì—ì„œì˜ ë²”ìœ„ , ê° ë…¸ë“œì˜ ë²ˆí˜¸, í•´ë‹¹ ë…¸ë“œê°€ cover í•˜ëŠ” ì…ë ¥ ë°°ì—´ì˜ ë²”ìœ„
     int queryRec(int left, int right, int node, int nodeLeft, int nodeRight){
 
-        // Query ±¸°£À» ¹ş¾î³ª¸é 0À» ¸®ÅÏ (±âº»°ª)
+        // Query êµ¬ê°„ì„ ë²—ì–´ë‚˜ë©´ 0ì„ ë¦¬í„´ (ê¸°ë³¸ê°’)
         if (right < nodeLeft || nodeRight < left)
         {
             return 0; // default value
         }
         
-        // Query ±¸°£¿¡ ¿ÏÀü Æ÷ÇÔµÇ´Â °æ¿ì´Â ÇöÀç °ªÀ» ±×³É return (leaf Æ÷ÇÔ)
+        // Query êµ¬ê°„ì— ì™„ì „ í¬í•¨ë˜ëŠ” ê²½ìš°ëŠ” í˜„ì¬ ê°’ì„ ê·¸ëƒ¥ return (leaf í¬í•¨)
         if (left <= nodeLeft && nodeRight <= right)
         {
             return tree[node];
         }
         int mid = nodeLeft + (nodeRight - nodeLeft) / 2;
 
-        // ³ëµåÀÇ ¿µ¿ªÀÌ query ¿µ¿ª¿¡ ¿ÏÀüÈ÷ Æ÷ÇÔµÇÁö ¾ÊÀ¸¸é¼­ lazy °ªÀÌ ÀÖ´Ù¸é lazy °ªÀ» push-down ÇÑ´Ù.
+        // ë…¸ë“œì˜ ì˜ì—­ì´ query ì˜ì—­ì— ì™„ì „íˆ í¬í•¨ë˜ì§€ ì•Šìœ¼ë©´ì„œ lazy ê°’ì´ ìˆë‹¤ë©´ lazy ê°’ì„ push-down í•œë‹¤.
         if (lazyExist[node])
         {
             lazyExist[node] = false;
@@ -87,23 +87,23 @@ struct SegmentTree
         }
         
 
-        // TreeÀÇ Áß°£ node¶ó¸é ±¸°£À» 2°³·Î ³ª´² recursive call ÇÑ ÈÄ, ¿ŞÂÊ sub-tree¿Í ¿À¸¥ÂÊ sub-treeÀÇ °ªÀ» ´õÇØ¼­ return
+        // Treeì˜ ì¤‘ê°„ nodeë¼ë©´ êµ¬ê°„ì„ 2ê°œë¡œ ë‚˜ëˆ  recursive call í•œ í›„, ì™¼ìª½ sub-treeì™€ ì˜¤ë¥¸ìª½ sub-treeì˜ ê°’ì„ ë”í•´ì„œ return
         return merge(queryRec(left, right, node*2, nodeLeft, mid), queryRec(left, right, node*2+1, mid +1, nodeRight));
     }
 
-    // ¾÷µ¥ÀÌÆ®ÇÒ À§Ä¡, ³ëµå¹øÈ£, ÇØ´ç ³ëµå°¡ coverÇÏ´Â ÀÔ·Â ¹è¿­ÀÇ ¹üÀ§
+    // ì—…ë°ì´íŠ¸í•  ìœ„ì¹˜, ë…¸ë“œë²ˆí˜¸, í•´ë‹¹ ë…¸ë“œê°€ coverí•˜ëŠ” ì…ë ¥ ë°°ì—´ì˜ ë²”ìœ„
     int updateRec(int left, int right, int newValue, int node, int nodeLeft, int nodeRight){
-        // ¾÷µ¥ÀÌÆ® À§Ä¡¿Í °ü·ÃÀÌ ¾ø´Â segment ÀÌ¸é ÇöÀç °ªÀ» return
+        // ì—…ë°ì´íŠ¸ ìœ„ì¹˜ì™€ ê´€ë ¨ì´ ì—†ëŠ” segment ì´ë©´ í˜„ì¬ ê°’ì„ return
         if (right < nodeLeft || nodeRight < left){
             return tree[node];
         }
-        // leaf³ëµåÀÌ¸é °ªÀ» ¾÷µ¥ÀÌÆ®ÇÏ°í ÇØ´ç °ªÀ» ¸®ÅÏ
+        // leafë…¸ë“œì´ë©´ ê°’ì„ ì—…ë°ì´íŠ¸í•˜ê³  í•´ë‹¹ ê°’ì„ ë¦¬í„´
         if (nodeLeft == nodeRight)
         {
             return tree[node] = newValue;
         }
 
-        // ³ëµåÀÇ ¿µ¿ªÀÌ query ¿µ¿ª¿¡ ¿ÏÀüÈ÷ Æ÷ÇÔµÈ´Ù¸é, ÇØ´ç ³ëµå¸¸ ¾÷µ¥ÀÌÆ®ÇÏ°í return
+        // ë…¸ë“œì˜ ì˜ì—­ì´ query ì˜ì—­ì— ì™„ì „íˆ í¬í•¨ëœë‹¤ë©´, í•´ë‹¹ ë…¸ë“œë§Œ ì—…ë°ì´íŠ¸í•˜ê³  return
         if (left <= nodeLeft && nodeRight <= right)
         {
             lazyExist[node] = true;
@@ -111,10 +111,10 @@ struct SegmentTree
             return tree[node] = mergeBlock(newValue, nodeRight - nodeLeft + 1);
         }
         
-        // TreeÀÇ Áß°£ node ¶ó¸é ±¸°£À» 2°³·Î ³ª´² recursive call ÇÑ ÈÄ, 
-        // ¿ŞÂÊ sub-tree¿Í ¿À¸¥ÂÊ sub-treeÀÇ °ªÀ» ´õÇØ¼­ return
+        // Treeì˜ ì¤‘ê°„ node ë¼ë©´ êµ¬ê°„ì„ 2ê°œë¡œ ë‚˜ëˆ  recursive call í•œ í›„, 
+        // ì™¼ìª½ sub-treeì™€ ì˜¤ë¥¸ìª½ sub-treeì˜ ê°’ì„ ë”í•´ì„œ return
         int mid = nodeLeft + (nodeRight - nodeLeft) / 2;
-        //³ëµåÀÇ ¿µ¿ªÀÌ query ¿µ¿ª¿¡ ¿ÏÀüÈ÷ Æ÷ÇÔµÇÁö ¾ÊÀ¸¸é¼­ lazy°ªÀÌ ÀÖ´Ù¸é, lazy °ªÀ» push-down ÇÑ´Ù.
+        //ë…¸ë“œì˜ ì˜ì—­ì´ query ì˜ì—­ì— ì™„ì „íˆ í¬í•¨ë˜ì§€ ì•Šìœ¼ë©´ì„œ lazyê°’ì´ ìˆë‹¤ë©´, lazy ê°’ì„ push-down í•œë‹¤.
         if (lazyExist[node])
         {
             lazyExist[node] = false;
@@ -143,7 +143,7 @@ int main(int argc, char const *argv[])
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    // 3ÃşÀÇ 4È£¿¡ »ì·Á¸é 2ÃşÀÇ 1È£ºÎÅÍ 4È£±îÁö »ç¶÷µéÀÇ ¼öÀÇ ÇÕ¸¸Å­ »ç¶÷µéÀ» µ¥·Á¿Í »ì¾Æ¾ß ÇÑ´Ù.
+    // 3ì¸µì˜ 4í˜¸ì— ì‚´ë ¤ë©´ 2ì¸µì˜ 1í˜¸ë¶€í„° 4í˜¸ê¹Œì§€ ì‚¬ëŒë“¤ì˜ ìˆ˜ì˜ í•©ë§Œí¼ ì‚¬ëŒë“¤ì„ ë°ë ¤ì™€ ì‚´ì•„ì•¼ í•œë‹¤.
 
     return 0;
 }
