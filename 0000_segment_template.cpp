@@ -14,7 +14,7 @@ struct SegmentTree
     vector <bool> lazyExist;
 
     int merge(int left, int right){
-        return left + right; // sum의 경우ㅁ
+        return left + right; // sum의 경우ㅎㅎㅎㅎㅎㅎㅎㅎㅎ
         //return min(left, right); // min
         //eturn max(left, right); // max
     }
