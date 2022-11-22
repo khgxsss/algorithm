@@ -130,8 +130,8 @@ struct SegmentTree
         
     }
 
-    int update(int index, int newValue){
-        return updateRec(index, newValue, 1, 0, N-1);
+    int update(int left, int right, int newValue){
+        return updateRec(left, right, newValue, 1, 0, N-1);
     }
 };
 
